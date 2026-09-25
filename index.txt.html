@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Housewarming Invitation</title>
+  <style>
+    :root {
+      --bg-color: #F4F1EB; /* 따뜻하고 포근한 크림톤 */
+      --text-color: #3E362E;
+      --accent-color: #B5651D; /* 짙은 우드톤 포인트 */
+      --box-bg: #FFFFFF;
+      --border-color: #E6E2D8;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .invitation-card {
+      background-color: var(--box-bg);
+      width: 100%;
+      max-width: 500px;
+      border-radius: 20px;
+      padding: 45px 35px;
+      box-shadow: 0 15px 35px rgba(139, 110, 94, 0.08);
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 12px;
+      color: var(--text-color);
+      letter-spacing: -0.5px;
+    }
+
+    p.desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #7A7269;
+      word-break: keep-all;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    label.section-title {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--accent-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      box-sizing: border-box;
+      font-size: 15px;
+      background-color: #FCFAFA;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    /* 체크박스 그리드 레이아웃 */
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* 항목이 홀수이거나 길 경우 전체 너비 사용 */
+    .checkbox-group.full-width {
+      grid-template-columns: 1fr;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      font-size: 14.5px;
+      color: #555;
+      cursor: pointer;
+      padding: 8px 12px;
+      background-color: #FDFDFD;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-label:hover {
+      background-color: #F4F1EB;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      margin-right: 10px;
+      accent-color: var(--accent-color);
+      width: 16px;
+      height: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #965316;
+    }
+
+    #loadingMessage {
+      display: none;
+      margin-top: 15px;
+      font-size: 14px;
+      text-align: center;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="invitation-card">
+    <div class="header-section">
+      <h1>Housewarming Invitation</h1>
+      <p class="desc">
+        따뜻한 우드톤 공간과 아늑한 조명 아래서<br>함께 즐거운 시간을 보내고자 합니다.<br>편하신 일정과 취향을 알려주세요!
+      </p>
+    </div>
+
+    <form id="rsvpForm">
+      <div class="form-group">
+        <label class="section-title" for="name_car">0. 기본 정보</label>
+        <input type="text" id="name_car" name="name_car" placeholder="이름 / 차량번호 (도보 시 '없음')" required>
+      </div>
+
+      <div class="form-group">
+        <label class="section-title">1. 참석 가능한 날짜 (복수 선택 가능)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="dates" value="10/9(금)"> 10월 9일 (금)</label>
+          <label class="checkbox-label"><input type="checkbox" name="dates" value="10/16(금)"> 10월 16일 (금)</label>
+          <label class="checkbox-label"><input type="checkbox" name="dates" value="10/23(금)"> 10월 23일 (금)</label>
+          <label class="checkbox-label"><input type="checkbox" name="dates" value="11/6(금)"> 11월 6일 (금)</label>
+          <label class="checkbox-label"><input type="checkbox" name="dates" value="11/13(금)"> 11월 13일 (금)</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="section-title">2. 선호하는 음식 (복수 선택 가능)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="foods" value="한식"> 한식</label>
+          <label class="checkbox-label"><input type="checkbox" name="foods" value="중식"> 중식</label>
+          <label class="checkbox-label"><input type="checkbox" name="foods" value="일식"> 일식</label>
+          <label class="checkbox-label"><input type="checkbox" name="foods" value="양식"> 양식</label>
+          <label class="checkbox-label"><input type="checkbox" name="foods" value="중동음식"> 중동음식</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="section-title">3. 원하는 컨텐츠 (복수 선택 가능)</label>
+        <div class="checkbox-group full-width">
+          <label class="checkbox-label"><input type="checkbox" name="contents" value="서면탐방"> 서면 탐방</label>
+          <label class="checkbox-label"><input type="checkbox" name="contents" value="욕하면서 연프보기"> 욕하면서 연애 프로그램 보기</label>
+          <label class="checkbox-label"><input type="checkbox" name="contents" value="보드게임"> 보드게임 (달무티 등)</label>
+          <label class="checkbox-label"><input type="checkbox" name="contents" value="닌텐도"> 닌텐도 스위치</label>
+          <label class="checkbox-label"><input type="checkbox" name="contents" value="스크린야구"> 스크린야구</label>
+          <label class="checkbox-label"><input type="checkbox" name="contents" value="기타"> 기타 (알아서 준비해주세요)</label>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn">응답 제출하기</button>
+      <div id="loadingMessage">응답을 기록하는 중입니다...</div>
+    </form>
+  </div>
+
+  <script>
+    // ★★★ 배포한 새 웹 앱 URL을 아래에 넣어주세요 ★★★
+    const scriptURL = '여기에_복사한_웹앱_URL을_붙여넣으세요';
+    
+    const form = document.getElementById('rsvpForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingMessage = document.getElementById('loadingMessage');
+
+    // 체크된 박스들의 값을 쉼표로 연결해주는 헬퍼 함수
+    const getCheckedValues = (name) => {
+      const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+      let values = [];
+      checkboxes.forEach((cb) => {
+        values.push(cb.value);
+      });
+      return values.join(', ');
+    };
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      const dates = getCheckedValues('dates');
+      if(!dates) {
+        alert('최소 하루 이상의 날짜를 선택해주세요!');
+        return;
+      }
+
+      submitBtn.style.display = 'none';
+      loadingMessage.style.display = 'block';
+
+      const data = {
+        name_car: form.name_car.value,
+        dates: dates,
+        foods: getCheckedValues('foods'),
+        contents: getCheckedValues('contents')
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        alert('응답이 성공적으로 제출되었습니다. 곧 만나요!');
+        form.reset();
+        submitBtn.style.display = 'block';
+        loadingMessage.style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Error!', error.message);
+        alert('오류가 발생했습니다. 다시 시도해주세요.');
+        submitBtn.style.display = 'block';
+        loadingMessage.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
